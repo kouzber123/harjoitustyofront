@@ -1,24 +1,26 @@
-import React from "react";
-import { Button, Item, Label, List, Segment } from "semantic-ui-react";
+import React, { useEffect, useState } from "react";
+import { Button, Item, Segment } from "semantic-ui-react";
 
-function PollList({ epolls }) {
+//map through the epolls and pass id to the select poll func
+function PollList({ epolls, selectPoll }) {
   return (
     <>
-      <Segment>
-        <Item.Group divided>
-          {epolls.map(epolls => (
-            <Item key={epolls.id}>
-              <Item.Content>
-                <Item.Header as="a">{epolls.title}</Item.Header>
-                <Item.Extra>
-                  <Button floated="right" content="View" color="blue" />
-                </Item.Extra>
-              </Item.Content>
-            </Item>
-          ))}
-        </Item.Group>
-      </Segment>
-      <List></List>
+      {epolls && (
+        <Segment>
+          <Item.Group divided>
+            {epolls.map((epolls, index) => (
+              <Item key={index}>
+                <Item.Content>
+                  <Item.Header as="a">{epolls.title}</Item.Header>
+                  <Item.Extra>
+                    <Button onClick={() => selectPoll(epolls.id)} floated="right" content="View" color="blue" />
+                  </Item.Extra>
+                </Item.Content>
+              </Item>
+            ))}
+          </Item.Group>
+        </Segment>
+      )}
     </>
   );
 }

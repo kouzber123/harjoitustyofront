@@ -1,55 +1,88 @@
 import React, { useEffect, useState } from "react";
 import { Button, Form, Icon, Segment } from "semantic-ui-react";
 
-function PollForm() {
+//THIS WORKS AS INTENTED
+function PollForm({ closeForm, epoll, createOrVote, submitting }) {
   const [i, setI] = useState(0);
   //in order to create input field dynamically
-  const [options, setOption] = useState([{ id: i, title: "" }]);
-  console.log(options);
+  const [input, setInput] = useState([
+    {
+      title: "",
+      id: i,
+      counts: 0
+    }
+  ]);
 
-  //init value as one
+  const initialState = epoll ?? {
+    title: "",
+    id: ""
+  };
+  //this will be our final object that we send to the database
+  var m;
+  const [poll, setPoll] = useState(initialState);
+
   useEffect(() => {
     setI(i + 1);
   }, []);
+
   //create func that handles the button add
   const handleButtonAdd = () => {
-    setOption([...options, { id: i, title: "" }]);
+    setInput([...input, { title: "", id: i, counts: 0 }]);
     setI(i + 1);
   };
 
   //spread operator prev arr obj
   const handleDelete = index => {
-    const list = [...options];
+    const list = [...input];
     list.splice(index, 1);
-    setOption(list);
+    setInput(list);
   };
+
+  //everytime value changes
+  function handleInputChange(event) {
+    const { name, value } = event.target;
+    setPoll({ ...poll, [name]: value });
+  }
 
   //deconstruct name and value > tutke in the [{title}]
-  //using the event.target.value
+  //using the event.target.value   this has to be separate from above changeinput because this determines the addbutton too
   const handleOptionChange = (e, index) => {
     const { name, value } = e.target;
-    const list = [...options];
+    const list = [...input];
     list[index][name] = value;
-
-    setOption(list);
+    setInput(list);
   };
+  //on submit create new  obj
+  function handleSubmit() {
+    m = {
+      id: poll.id,
+      title: poll.title,
+      options: input
+    };
+    //we can either do usestate or object
+
+    console.log(m);
+    console.log(input);
+    createOrVote(m);
+  }
+
   return (
     <>
       <Segment clearing>
-        <Form>
-          <Form.Input placeholder="Title" />
-          {options.map((singleOption, index) => (
+        <Form onSubmit={handleSubmit} autoComplete="off">
+          <Form.Input placeholder="Title" value={poll.title} name="title" onChange={handleInputChange} />
+          {input.map((singleInput, index) => (
             <div key={index}>
-              {options.length > 1 && (
+              {input.length > 1 && (
                 <Button size="mini" basic color="red" floated="right" onClick={() => handleDelete(index)}>
                   <Icon name="delete" />
                 </Button>
               )}
 
-              <Form.Input id={singleOption.id} name="title" placeholder="Option" value={singleOption.title} onChange={e => handleOptionChange(e, index, singleOption.id)} />
+              <Form.Input id={singleInput.id} name="title" placeholder="Option" value={input.title} onChange={e => handleOptionChange(e, index)} />
               {/* <Option props={singleOption} id={index} value={singleOption.title} onChange={e => handleOptionChange(e, index)} /> */}
 
-              {options.length - 1 === index && (
+              {input.length - 1 === index && (
                 <Button floated="right" size="mini" basic color="green" onClick={handleButtonAdd}>
                   <Icon name="add circle" />
                 </Button>
@@ -58,8 +91,8 @@ function PollForm() {
           ))}
 
           <Button.Group floated="left">
-            <Button positive type="submit" content="Submit" style={{ marginTop: "10px" }} />
-            <Button type="button" content="Cancel" style={{ marginTop: "10px" }} />
+            <Button loading={submitting} positive type="submit" content="Submit" style={{ marginTop: "10px" }} />
+            <Button onClick={closeForm} type="button" content="Cancel" style={{ marginTop: "10px" }} />
           </Button.Group>
         </Form>
       </Segment>
