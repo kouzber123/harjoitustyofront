@@ -4,7 +4,6 @@ import NavBar from "../Components/Navbar";
 import PollDashboard from "../Components/Dashboard/PollDashboard";
 import agent from "../Api/agent";
 import LoadingComponent from "../Components/LoadingComponent";
-
 function App() {
   //set usestate as empty array
   const [epolls, setEpolls] = useState([]);

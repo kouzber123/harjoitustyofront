@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Grid } from "semantic-ui-react";
+import React from "react";
+import { Grid, Header } from "semantic-ui-react";
 import PollDetails from "../Details/PollDetails";
 import PollForm from "../Form/PollForm";
 import PollList from "./PollList";
@@ -8,9 +8,9 @@ import PollList from "./PollList";
 
 //drop props to another level and passing our functions into dashboard
 function PollDashboard({ props, selectedPoll, selectPoll, cancelSelectPoll, editMode, closeForm, openForm, createOrVote, submitting }) {
-
   return (
     <>
+      <Header as="h2">Latest Polls</Header>
       <Grid>
         <Grid.Column width="10">
           <PollList epolls={props} selectPoll={selectPoll} />

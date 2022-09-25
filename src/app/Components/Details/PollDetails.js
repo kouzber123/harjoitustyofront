@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Button, Card, Checkbox, Form } from "semantic-ui-react";
 
 //in Polldashboard
@@ -25,7 +25,7 @@ function PollDetails({ epoll, cancelSelectPoll, openForm, createOrVote, submitti
               <Card.Header>{epoll.title}</Card.Header>
               {epoll.options.map((option, index) => (
                 <Form.Field key={index}>
-                  <Checkbox radio id={option.id} label={option.title + " | [" + option.counts + "]"} name="options" value={index} checked={value === index} onChange={(e, data) => setValue(data.value)} />
+                  <Checkbox radio id={option.id} label={`${option.title}    { ${option.counts} } : Votes`} name="options" value={index} checked={value === index} onChange={(e, data) => setValue(data.value)} />
                 </Form.Field>
               ))}
             </Card.Content>

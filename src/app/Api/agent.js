@@ -1,5 +1,4 @@
 import axios from "axios";
-import { useEffect } from "react";
 
 //delay for the screen by adding some sleep
 
@@ -9,7 +8,7 @@ const sleep = delay => {
   });
 };
 //this handles axios requests
-axios.defaults.baseURL = "http://localhost:5000";
+axios.defaults.baseURL = "http://localhost:5000/Polls";
 
 axios.interceptors.response.use(async response => {
   try {
@@ -25,15 +24,15 @@ const responseBody = response => response.data;
 
 const requests = {
   get: url => axios.get(url).then(responseBody),
-  post: (url, body = {}) => axios.post(url, body).then(responseBody),
-  put: (url, body = {}) => axios.put(url, body).then(responseBody)
+  post: (url, body) => axios.post(url, body).then(responseBody),
+  put: (url, body) => axios.put(url, body).then(responseBody)
 };
 
 const Polls = {
-  list: () => requests.get("/Epolls"),
-  details: id => requests.get(`/Epoll/${id}`),
-  create: poll => requests.post("/Epolls", poll),
-  update: poll => requests.put(`/Epolls`, poll)
+  list: () => requests.get("/"),
+  details: id => requests.get(`/${id}`),
+  create: poll => requests.post("/add/", poll),
+  update: poll => requests.put("/id/vote/option/", poll)
 };
 const agent = {
   Polls

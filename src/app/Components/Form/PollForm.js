@@ -24,7 +24,7 @@ function PollForm({ closeForm, epoll, createOrVote, submitting }) {
   useEffect(() => {
     setI(i + 1);
   }, []);
-
+  console.log(i);
   //create func that handles the button add
   const handleButtonAdd = () => {
     setInput([...input, { title: "", id: i, counts: 0 }]);
