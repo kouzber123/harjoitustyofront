@@ -2,16 +2,15 @@ import React, { useState } from "react";
 import { Button, Card, Checkbox, Form } from "semantic-ui-react";
 
 //in Polldashboard
-// use ternary operation to confirm if epolls has data then do
+// use ternary operation epools&& do code ... to confirm if epolls has data then do
 
-function PollDetails({ epoll, cancelSelectPoll, openForm, createOrVote, submitting, hasVoted }) {
+function PollDetails({ epoll, cancelSelectPoll, createOrVote}) {
   const [value, setValue] = useState(0);
   var initialState = epoll;
 
-  // console.log(cancelSelectPoll);
-  // const [value, setValue] = useState();
+//on submit has increment the value then pass it to the createorVote 
   function handleSubmit() {
-    // console.log(list[value]);
+  
     initialState.options[value].counts++;
 
     createOrVote(initialState);

@@ -7,9 +7,10 @@ const sleep = delay => {
     setTimeout(resolve, delay);
   });
 };
-//this handles axios requests
+//this handles axios requests set the baseurl :
 axios.defaults.baseURL = "http://localhost:5000/Polls";
 
+//intercept the req and cause small 1s delay then return the resp
 axios.interceptors.response.use(async response => {
   try {
     await sleep(1000);
@@ -20,14 +21,17 @@ axios.interceptors.response.use(async response => {
   }
 });
 
+//resp body will have the data
 const responseBody = response => response.data;
 
+//below handles the requests user makes
 const requests = {
   get: url => axios.get(url).then(responseBody),
   post: (url, body) => axios.post(url, body).then(responseBody),
   put: (url, body) => axios.put(url, body).then(responseBody)
 };
 
+//endpoints
 const Polls = {
   list: () => requests.get("/"),
   details: id => requests.get(`/${id}`),

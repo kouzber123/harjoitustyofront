@@ -1,6 +1,7 @@
 import React from "react";
 import { Button, Container, Menu } from "semantic-ui-react";
 
+//just basic navbar that opens the form to create a poll
 function NavBar({ openForm }) {
   return (
     <>

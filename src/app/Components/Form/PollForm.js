@@ -4,6 +4,7 @@ import { Button, Form, Icon, Segment } from "semantic-ui-react";
 //THIS WORKS AS INTENTED
 function PollForm({ closeForm, epoll, createOrVote, submitting }) {
   const [i, setI] = useState(0);
+
   //in order to create input field dynamically
   const [input, setInput] = useState([
     {
@@ -17,6 +18,7 @@ function PollForm({ closeForm, epoll, createOrVote, submitting }) {
     title: "",
     id: ""
   };
+
   //this will be our final object that we send to the database
   var m;
   const [poll, setPoll] = useState(initialState);
@@ -24,7 +26,7 @@ function PollForm({ closeForm, epoll, createOrVote, submitting }) {
   useEffect(() => {
     setI(i + 1);
   }, []);
-  console.log(i);
+
   //create func that handles the button add
   const handleButtonAdd = () => {
     setInput([...input, { title: "", id: i, counts: 0 }]);
@@ -60,9 +62,6 @@ function PollForm({ closeForm, epoll, createOrVote, submitting }) {
       options: input
     };
     //we can either do usestate or object
-
-    console.log(m);
-    console.log(input);
     createOrVote(m);
   }
 
@@ -80,7 +79,6 @@ function PollForm({ closeForm, epoll, createOrVote, submitting }) {
               )}
 
               <Form.Input id={singleInput.id} name="title" placeholder="Option" value={input.title} onChange={e => handleOptionChange(e, index)} />
-              {/* <Option props={singleOption} id={index} value={singleOption.title} onChange={e => handleOptionChange(e, index)} /> */}
 
               {input.length - 1 === index && (
                 <Button floated="right" size="mini" basic color="green" onClick={handleButtonAdd}>

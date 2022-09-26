@@ -12,7 +12,6 @@ function App() {
   const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
   const [updateRequest, setUpdateRequest] = useState(false);
-  //create list of the api so
 
   //updates the page every time changes occur
   useEffect(() => {
@@ -25,13 +24,14 @@ function App() {
       console.log(error);
     }
   }, [updateRequest]);
+  //update requests refreshes our frontpage list everytime user creates a poll
 
   //get selected poll by id
   function handleSelectPoll(id) {
     setSelectedPoll(epolls.find(x => x.id === id));
   }
 
-  //by pressing onclick btn cancel set to undefined
+  //by pressing onclick btn cancel set to undefined > cannot display selectedpoll as there isnt id
   function handleCancelSelectPoll() {
     setSelectedPoll(undefined);
   }
