@@ -1,19 +1,13 @@
 ### `npm start`
-<<<<<<< HEAD
-
-=======
->>>>>>> 0c090b006f1037f8adae0b0b0a2101bef04a3241
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
 This is the front end for the Epoll app. built by using the reactJs and libraries such as axios and semantic UI.
 Not using node.js as our backend is built on c# as it was requested
 This Single page application and using ternary operation to handle the logic in changing the components to the corresponding ones.
 
-<<<<<<< HEAD
-we are using useStates to follow the flow of the app (conditionals) and store our db data
-=======
 we are using useStates to follow the flow of the app (conditionals) and store our db data 
->>>>>>> 0c090b006f1037f8adae0b0b0a2101bef04a3241
+epolls fot fetching
+selectedpoll for dispalying the details
+editmode for creating poll and so on
 
     const [epolls, setEpolls] = useState([]);
     const [SelectedPoll, setSelectedPoll] = useState(undefined);
@@ -62,7 +56,6 @@ fetch data with axios from the end point that has been stored in agent.js file i
     Polls
     };
     export default agent;
-<<<<<<< HEAD
 
 naturally this also holds the post and put requests etc.
 
@@ -93,22 +86,22 @@ Polldashboard is the central hub for the components
    depending wheter select or editmode it displays either one or in some cases : both
 
 
-    function PollDashboard({ props, selectedPoll, selectPoll, cancelSelectPoll, editMode, closeForm, openForm, createOrVote, submitting }) {
-     return (
-    <>
-      <Header as="h2">Latest Polls</Header>
-      <Grid>
-        <Grid.Column width="10">
+          function PollDashboard({ props, selectedPoll, selectPoll, cancelSelectPoll, editMode, closeForm, openForm, createOrVote, submitting }) {
+             return (
+             <>
+           <Header as="h2">Latest Polls</Header>
+          <Grid>
+          <Grid.Column width="10">
           <PollList epolls={props} selectPoll={selectPoll} />
         </Grid.Column>
         <Grid.Column width="6">
           {selectPoll && <PollDetails epoll={selectedPoll} cancelSelectPoll={cancelSelectPoll} openForm={openForm} createOrVote={createOrVote} submitting={submitting}      />}
           {editMode && <PollForm closeForm={closeForm} epoll={selectedPoll} createOrVote={createOrVote} submitting={submitting} />}
         </Grid.Column>
-      </Grid>
-    </>
-    );
-    }
+        </Grid>
+          </>
+           );
+     }
 
 in the polldetails : create initial state of epoll to change the value with the selected check box value as the options[index].count is by the same index values
 once clicking vote button we are just adding counts++ so increment the current value by one, then passing it to createOrVote that decides whethever the poll has id
@@ -134,7 +127,7 @@ pressing the cancel on the otherhand turns the form off as cancelselectpoll come
               <Card.Header>{epoll.title}</Card.Header>
               {epoll.options.map((option, index) => (
                 <Form.Field key={index}>
-                  <Checkbox radio id={option.id} label={`${option.title}    { ${option.counts} } : Votes`} name="options" value={index} checked={value === index}                           onChange={(e, data) => setValue(data.value)} />
+                  <Checkbox radio id={option.id} label={`${option.title}  { ${option.counts} } : Votes`} name="options" value={index} checked={value === index}                           onChange={(e, data) => setValue(data.value)} />
                 </Form.Field>
               ))}
             </Card.Content>
